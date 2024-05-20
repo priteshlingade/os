@@ -1,29 +1,28 @@
-#include<stdio.h>
-#include<unistd.h>
-#include<signal.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <stdio.h>
+
 int main()
 {
+    int pid,ret, sig;
 
-int pid,signo,err;
+    printf("Enter the process id: ");
+    scanf("%d", &pid);
 
-printf("enter process id : ");
-scanf("%d",&pid);
+    printf("Enter the signal number: ");
+    scanf("%d", &sig);
 
-printf("\n enter signal no. ");
-scanf("%d",&signo);
+    ret=kill(pid, sig);
 
-err=kill(pid,signo);
+    if(ret==0)
+        printf("Signal sent successfully\n");
 
-	if(err==0)
-	{
-		printf("process kill sucessfully \n");
-	}
+    else
+        printf("Signal sending failed\n");
 
-	else
-	{
-		printf("procell kill fail \n");
+    if(ret==-1)
+        perror("kill");
 
-	}
+    return 0;
 
-return 0;
 }
